@@ -1,0 +1,207 @@
+# =============================================================================
+# GigBid Phase 1 infrastructure.   Requires Docker Compose v2.24+ (Ubuntu 22.04:
+# install docker-ce + docker-compose-plugin from Docker's apt repo).
+#
+# Run from the repo root so the .env file is picked up for interpolation:
+#   docker compose --env-file .env -f docker/docker-compose.yml up -d
+#
+# Core (always on):  postgres, redis, ollama, ollama-pull, qdrant
+# Profile "app":     api, worker, web   (images are built in Phase 2+; the
+#                    Dockerfiles go in infra/docker/). Enable with:
+#   docker compose --env-file .env -f docker/docker-compose.yml --profile app up -d
+#
+# Optional NVIDIA GPU for Ollama: add the override at the bottom of this file
+# (see "GPU override") or run with a second -f file containing it.
+# =============================================================================
+name: gigbid
+
+x-env-file: &env_file
+  - path: ../.env
+    required: false
+
+x-restart: &restart
+  restart: unless-stopped
+
+networks:
+  gigbid_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  ollama_data:
+  qdrant_data:
+  hf_cache:
+
+services:
+  # --- Postgres: app data, LangGraph checkpointer, long-term memory store ----
+  postgres:
+    image: postgres:16-alpine
+    <<: *restart
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-gigbid}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-postgres-password}
+      POSTGRES_DB: ${POSTGRES_DB:-gigbid}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gigbid} -d ${POSTGRES_DB:-gigbid}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks: [gigbid_net]
+
+  # --- Redis: Celery broker/result backend, rate limiter, caches --------------
+  redis:
+    image: redis:7-alpine
+    <<: *restart
+    command:
+      - redis-server
+      - --requirepass
+      - ${REDIS_PASSWORD:-change-me-redis-password}
+      - --appendonly
+      - "yes"
+      - --maxmemory-policy
+      - noeviction            # never silently drop queued Celery tasks
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$${REDIS_PASSWORD:-change-me-redis-password}\" --no-auth-warning ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-change-me-redis-password}
+    networks: [gigbid_net]
+
+  # --- Ollama: local open-weight models (the `open` profile) --------------------
+  ollama:
+    image: ollama/ollama:latest
+    <<: *restart
+    environment:
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:-30m}
+      OLLAMA_HOST: 0.0.0.0:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "127.0.0.1:11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 15s
+    networks: [gigbid_net]
+
+  # --- One-shot: pull the models named in agent/config.yaml (open profile) ------
+  ollama-pull:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODELS_TO_PULL: ${OLLAMA_MODELS_TO_PULL:-qwen3:8b qwen3:4b gpt-oss:20b}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        for m in $$OLLAMA_MODELS_TO_PULL; do
+          echo "pulling $$m"
+          ollama pull "$$m"
+        done
+    restart: "no"
+    networks: [gigbid_net]
+
+  # --- Vector store (one): Qdrant for the Portfolio RAG index -------------------
+  qdrant:
+    image: qdrant/qdrant:latest
+    <<: *restart
+    volumes:
+      - qdrant_data:/qdrant/storage
+    ports:
+      - "127.0.0.1:6333:6333"
+    networks: [gigbid_net]
+
+  # --- API (FastAPI). Built from infra/docker/api.Dockerfile in Phase 2 ----------
+  api:
+    profiles: ["app"]
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+    <<: *restart
+    env_file: *env_file
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-change-me-postgres-password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-change-me-redis-password}@redis:6379/0
+      OLLAMA_BASE_URL: http://ollama:11434
+      QDRANT_URL: http://qdrant:6333
+    command: ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      ollama: { condition: service_healthy }
+      qdrant: { condition: service_started }
+    ports:
+      - "8000:8000"
+    volumes:
+      - hf_cache:/models/huggingface
+    networks: [gigbid_net]
+
+  # --- Worker (Celery on Redis): scheduled scouting and long agent runs ----------
+  worker:
+    profiles: ["app"]
+    build:
+      context: ..
+      dockerfile: infra/docker/worker.Dockerfile
+    <<: *restart
+    env_file: *env_file
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-change-me-postgres-password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:-change-me-redis-password}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:-change-me-redis-password}@redis:6379/2
+      OLLAMA_BASE_URL: http://ollama:11434
+      QDRANT_URL: http://qdrant:6333
+    command: ["celery", "-A", "worker.app", "worker", "--loglevel=INFO", "--concurrency=2"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      ollama: { condition: service_healthy }
+    volumes:
+      - hf_cache:/models/huggingface
+    networks: [gigbid_net]
+
+  # --- Web (Next.js). Built from infra/docker/web.Dockerfile in Phase 2+ ---------
+  web:
+    profiles: ["app"]
+    build:
+      context: ..
+      dockerfile: infra/docker/web.Dockerfile
+    <<: *restart
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks: [gigbid_net]
+
+# -----------------------------------------------------------------------------
+# GPU override (NVIDIA Container Toolkit required). Save as
+# docker/docker-compose.gpu.yml and run with `-f docker/docker-compose.yml -f docker/docker-compose.gpu.yml`:
+#
+#   services:
+#     ollama:
+#       deploy:
+#         resources:
+#           reservations:
+#             devices:
+#               - driver: nvidia
+#                 count: all
+#                 capabilities: [gpu]
+# -----------------------------------------------------------------------------

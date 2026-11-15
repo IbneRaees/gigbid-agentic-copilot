@@ -1,0 +1,27 @@
+# Secrets & Environment
+.env
+.env.local
+*.pem
+*.key
+
+# Python & Virtual Environments
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Local Databases, Logs & Raw Datasets
+*.db
+*.sqlite
+*.sqlite3
+*.jsonl
+data/raw/
+evals/results/*
+!evals/results/.gitkeep

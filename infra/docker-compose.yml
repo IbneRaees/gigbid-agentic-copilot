@@ -1,0 +1,4 @@
+# Canonical path required by the assignment. Delegates to docker/docker-compose.yml.
+# Requires Docker Compose v2.20+ (the `include` element).
+include:
+  - path: ../docker/docker-compose.yml
