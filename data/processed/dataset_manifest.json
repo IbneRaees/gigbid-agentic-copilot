@@ -1,0 +1,20 @@
+{
+  "generator": "data/build_datasets.py",
+  "rng_seed": 42,
+  "counts": {
+    "jobs_total": 48,
+    "jobs_kaggle_real": 0,
+    "jobs_synthetic": 48,
+    "clients_total": 10,
+    "freelancers_total": 2,
+    "portfolio_items_total": 24,
+    "message_threads_total": 8
+  },
+  "sha256": {
+    "jobs.json": "d3d0df9b8922be44fa2beddb53d8b3c0e36b41f7ab645d6d1cde0fed19ca70d4",
+    "client_history.json": "d0e474d9471d2deac64df75376f2e121f332f24315e3f726d6b3152f04be6ca0",
+    "freelancers.json": "083f42391b55c1985abcf51da2eb579cb0a1c1a36eee474ab224404f4726ca6a",
+    "portfolio_items.json": "0196a7593ce8df240eb57c582937a16560c264bbc2fd81ad77c695b437ed516d",
+    "messages.json": "f9d7c84d9dfa27eea105603b70a1a1e710c6c92c01b312cf5fb389a0ff5b24d8"
+  }
+}

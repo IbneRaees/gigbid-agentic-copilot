@@ -1,0 +1,573 @@
+[
+  {
+    "evidence_id": "ev_aiml_001",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres",
+    "client_industry": "LegalTech",
+    "date": "2026-06-18",
+    "outcome": "won",
+    "skills": [
+      "LangGraph",
+      "Python",
+      "PostgreSQL",
+      "FastAPI",
+      "Human-in-the-Loop",
+      "Pydantic"
+    ],
+    "summary": "Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining.",
+    "full_text": "Built a production multi-agent contract analysis system using LangGraph StateGraph with parallel clause extraction, risk scoring, and compliance gating. Implemented PostgresSaver checkpoint durability so paused human-in-the-loop approvals survive container restarts. Reduced analyst review time by 62% across 1,400+ vendor agreements while maintaining a 1.8% unsupported-claim rate via automated claim-level grounding checks.",
+    "metrics": {
+      "review_time_reduction": "62%",
+      "unsupported_claim_rate": "1.8%",
+      "contracts_processed": 1400
+    },
+    "repo_url": "https://github.com/ayesha-ml/langgraph-contract-copilot",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_002",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Hybrid BM25 + BGE-M3 Retrieval & Cross-Encoder Reranking Engine",
+    "client_industry": "FinTech",
+    "date": "2026-04-10",
+    "outcome": "won",
+    "skills": [
+      "RAG",
+      "Hybrid Search",
+      "pgvector",
+      "BAAI/bge-m3",
+      "Cross-Encoder Reranking",
+      "Python"
+    ],
+    "summary": "Replaced naive dense cosine search with Reciprocal Rank Fusion (BM25 + pgvector) and bge-reranker-v2-m3 for financial compliance QA.",
+    "full_text": "Diagnosed poor recall on exact regulatory codes and ticker symbols in an existing dense vector pipeline. Implemented hybrid sparse+dense retrieval using PostgreSQL tsvector BM25 fused via RRF (k=60) with BGE-M3 embeddings, followed by bge-reranker-v2-m3 top-6 reranking. Raised Evidence Recall@5 from 0.58 to 0.89 (+31 points) and nDCG@10 from 0.54 to 0.84 at 310ms p95 retrieval latency on CPU.",
+    "metrics": {
+      "recall_at_5": 0.89,
+      "ndcg_at_10": 0.84,
+      "p95_retrieval_ms": 310
+    },
+    "repo_url": "https://github.com/ayesha-ml/hybrid-rag-eval-bench",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_003",
+    "freelancer_id": "persona_aiml_01",
+    "type": "github_repo",
+    "title": "mcp-enterprise-tools: Official MCP Python SDK Server Suite",
+    "client_industry": "Developer Tools",
+    "date": "2026-08-05",
+    "outcome": "won",
+    "skills": [
+      "MCP",
+      "Python",
+      "FastAPI",
+      "OAuth 2.1",
+      "Idempotency",
+      "Pytest"
+    ],
+    "summary": "Production Model Context Protocol servers with Pydantic schemas, tool annotations, Bearer auth, and idempotency keys.",
+    "full_text": "Developed a suite of three MCP servers using the official MCP Python SDK over Streamable HTTP. Implemented strict Pydantic v2 input/output schemas, readOnlyHint/destructiveHint annotations, Redis-backed idempotency keys on all write mutations, per-tenant rate limiting, and automated schema snapshot regression tests in CI.",
+    "metrics": {
+      "tool_selection_accuracy": "97.5%",
+      "test_coverage": "94%"
+    },
+    "repo_url": "https://github.com/ayesha-ml/mcp-enterprise-tools",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_004",
+    "freelancer_id": "persona_aiml_01",
+    "type": "past_proposal",
+    "title": "Winning Proposal: Healthcare Clinical Guidelines RAG with Claim Verification",
+    "client_industry": "Healthcare",
+    "date": "2026-03-22",
+    "outcome": "won",
+    "skills": [
+      "RAG",
+      "Claim Verification",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "summary": "Winning $4,500 fixed-price proposal demonstrating sentence-level citation verification before clinician display.",
+    "full_text": "Your requirement to eliminate hallucinated dosage guidance maps directly to the claim-verification gate I built for a clinical SOP assistant. By decomposing generated answers into atomic claims and scoring each against retrieved guideline chunks before rendering, we cut unsupported statements from 14% to under 1.5%. Milestone 1 (Days 1-5): Hybrid ingestion + RAGAS baseline benchmark on your 300 PDFs.",
+    "metrics": {
+      "contract_value_usd": 4500,
+      "unsupported_claims_after": "1.4%"
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_005",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Local-First Open-Weight LLM Inference Stack (Ollama + vLLM Routing)",
+    "client_industry": "Enterprise SaaS",
+    "date": "2026-07-14",
+    "outcome": "won",
+    "skills": [
+      "Ollama",
+      "vLLM",
+      "Qwen3",
+      "Docker",
+      "Cost Optimization",
+      "LangGraph"
+    ],
+    "summary": "Tiered model routing sending classification/guardrail nodes to 8B quantized models and drafting nodes to 32B open models.",
+    "full_text": "Designed a config-driven model router enabling an enterprise customer to run their entire agent pipeline on self-hosted Qwen3-8B and Qwen3-32B models without external API spend. Reduced per-workflow inference cost by 88% compared to frontier API baselines while keeping p95 end-to-end latency under 14 seconds.",
+    "metrics": {
+      "cost_reduction": "88%",
+      "p95_latency_s": 13.8
+    },
+    "repo_url": "https://github.com/ayesha-ml/tiered-open-llm-router",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_006",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Prompt Injection Defense & PII Redaction Gateway for Untrusted Feeds",
+    "client_industry": "Cybersecurity",
+    "date": "2026-05-29",
+    "outcome": "interview",
+    "skills": [
+      "Prompt Injection Defense",
+      "PII Masking",
+      "Guardrails",
+      "Python",
+      "FastAPI"
+    ],
+    "summary": "Built structured XML data delimiters, heuristic/classifier injection filters, and regex+NER PII log redaction.",
+    "full_text": "Hardened an automated ticket-triage agent against indirect prompt injections embedded in customer emails. Combined structural boundary delimiters, dual-pass classifier inspection, and deterministic PII scrubbing in OpenTelemetry/Langfuse traces, lowering injection attack success rate from 34% to 1.2% on a 250-sample red-team suite.",
+    "metrics": {
+      "attack_success_before": "34%",
+      "attack_success_after": "1.2%"
+    },
+    "repo_url": "https://github.com/ayesha-ml/agent-injection-shield",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_007",
+    "freelancer_id": "persona_aiml_01",
+    "type": "github_repo",
+    "title": "graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching",
+    "client_industry": "HR Tech",
+    "date": "2026-02-11",
+    "outcome": "won",
+    "skills": [
+      "GraphRAG",
+      "PostgreSQL",
+      "Python",
+      "Entity Resolution",
+      "RAG"
+    ],
+    "summary": "Multi-hop entity graph linking skills, projects, client industries, and verified outcomes.",
+    "full_text": "Implemented a GraphRAG retrieval module connecting candidate skills, code repositories, domain verticals, and historical win outcomes. Outperformed flat vector search by +19% Recall@5 on multi-hop queries asking for cross-domain experience.",
+    "metrics": {
+      "multihop_recall_gain": "+19%"
+    },
+    "repo_url": "https://github.com/ayesha-ml/graphrag-skill-linker",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_008",
+    "freelancer_id": "persona_aiml_01",
+    "type": "past_proposal",
+    "title": "Replied Proposal: Automated Support Triage with Arq Background Workers",
+    "client_industry": "E-Commerce",
+    "date": "2026-01-19",
+    "outcome": "replied",
+    "skills": [
+      "Redis",
+      "Arq",
+      "FastAPI",
+      "Python",
+      "Observability"
+    ],
+    "summary": "Proposal detailing idempotent Redis/Arq background job execution and Langfuse trace correlation.",
+    "full_text": "Moving long-running LLM pipelines out of HTTP request handlers into idempotent Redis/Arq workers prevents gateway timeouts and duplicate token spend on retries. In a recent e-commerce deployment, we propagated a single W3C trace ID from the React frontend through FastAPI, Arq workers, and tool calls into Langfuse.",
+    "metrics": {
+      "worker_retry_duplicates": 0
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_009",
+    "freelancer_id": "persona_aiml_01",
+    "type": "cv_section",
+    "title": "Curriculum Vitae — Education, Publications & Core ML Engineering Experience",
+    "client_industry": "Cross-Industry",
+    "date": "2026-09-01",
+    "outcome": "won",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "LangGraph",
+      "RAG",
+      "Distributed Systems",
+      "Evaluation"
+    ],
+    "summary": "PhD in Computer Science (NLP & Information Retrieval); 7+ years shipping production ML and LLM systems.",
+    "full_text": "Dr. Ayesha Tariq holds a PhD in Natural Language Processing and Information Retrieval. Over 7 years of industry experience architecting production search engines, multi-agent LangGraph workflows, calibrated LLM-as-a-judge evaluation harnesses (Cohen's kappa > 0.82), and containerized FastAPI + Postgres/pgvector deployments.",
+    "metrics": {
+      "years_experience": 7,
+      "judge_cohens_kappa": 0.84
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_010",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Calibrated LLM-as-a-Judge & CI Evaluation Gate for Proposal Quality",
+    "client_industry": "EdTech",
+    "date": "2026-06-02",
+    "outcome": "won",
+    "skills": [
+      "Evaluation & RAGAS",
+      "CI/CD",
+      "GitHub Actions",
+      "Python",
+      "Statistical Calibration"
+    ],
+    "summary": "Built automated CI eval gates measuring Recall@5, F1, and Cohen's kappa judge calibration before deployment.",
+    "full_text": "Created a deterministic CI evaluation runner executing retrieval, classification, and rubric scoring on every pull request. Calibrated the automated judge against 50 human-labeled gold examples achieving Cohen's kappa = 0.83 and blocking regressions automatically in GitHub Actions.",
+    "metrics": {
+      "cohens_kappa": 0.83
+    },
+    "repo_url": "https://github.com/ayesha-ml/ci-llm-eval-gate",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_011",
+    "freelancer_id": "persona_aiml_01",
+    "type": "past_proposal",
+    "title": "Ignored Proposal (Lesson Learned): Generic High-Level Pitch Without Metrics",
+    "client_industry": "Marketing Tech",
+    "date": "2025-11-12",
+    "outcome": "ignored",
+    "skills": [
+      "Python",
+      "RAG",
+      "OpenAI"
+    ],
+    "summary": "Early generic proposal that lacked concrete portfolio metrics and opened with filler text.",
+    "full_text": "Hello! I am very passionate about AI and would love to help you build your RAG chatbot. I have extensive experience with Python and vector databases and can start right away. Please message me to discuss.",
+    "metrics": {
+      "word_count": 38
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_aiml_012",
+    "freelancer_id": "persona_aiml_01",
+    "type": "case_study",
+    "title": "Contextual Chunking & Multi-Vector Code+README Indexing for Developer Docs",
+    "client_industry": "Developer Tools",
+    "date": "2026-08-21",
+    "outcome": "won",
+    "skills": [
+      "Contextual Retrieval",
+      "AST Code Chunking",
+      "pgvector",
+      "Python",
+      "GitHub API"
+    ],
+    "summary": "Indexed repository summaries, AST code blocks, and READMEs as linked multi-vector documents.",
+    "full_text": "Solved the 'irrelevant README' retrieval failure mode by indexing repository summaries, docstrings, and AST-parsed function signatures separately while grouping hits at the project level. Boosted code-grounded evidence retrieval by +24% on technical RFP questions.",
+    "metrics": {
+      "code_retrieval_gain": "+24%"
+    },
+    "repo_url": "https://github.com/ayesha-ml/multivector-repo-rag",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_001",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "Real-Time AI Workflow Studio in Next.js 15, TypeScript & FastAPI SSE",
+    "client_industry": "AI SaaS",
+    "date": "2026-07-28",
+    "outcome": "won",
+    "skills": [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "FastAPI",
+      "SSE",
+      "Playwright",
+      "Tailwind CSS"
+    ],
+    "summary": "Built a streaming multi-step AI copilot UI with live node timelines, inline evidence popovers, and human approval drawers.",
+    "full_text": "Architected an end-to-end Next.js + FastAPI web application streaming real-time Server-Sent Events (SSE) from backend agent graphs. Built interactive evidence-hover tooltips, diff-aware draft editors, and durable approval modals that survive full page reloads. Achieved 99.94% uptime and 100% pass rate across 18 Playwright E2E specs.",
+    "metrics": {
+      "uptime": "99.94%",
+      "playwright_specs": 18,
+      "ttfb_ms": 95
+    },
+    "repo_url": "https://github.com/bilal-dev/nextjs-sse-agent-studio",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_002",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "Multi-Tenant B2B Procurement Portal with PostgreSQL Row-Level Isolation & Stripe",
+    "client_industry": "Supply Chain",
+    "date": "2026-05-14",
+    "outcome": "won",
+    "skills": [
+      "PostgreSQL",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "Stripe Billing",
+      "Docker"
+    ],
+    "summary": "Delivered a multi-tenant SaaS procurement platform handling $1.2M/mo in milestone escrow invoices.",
+    "full_text": "Designed strict tenant-scoped PostgreSQL schemas, Fernet-encrypted OAuth credential vaults, and idempotent Stripe webhook processing for a B2B vendor marketplace. Reduced API p95 query latency from 640ms to 78ms via composite indexing and Redis caching.",
+    "metrics": {
+      "p95_api_ms": 78,
+      "monthly_gmv_usd": 1200000
+    },
+    "repo_url": "https://github.com/bilal-dev/b2b-procurement-saas",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_003",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "github_repo",
+    "title": "openapi-ts-strict-starter: Zero-Drift FastAPI + Next.js Monorepo Template",
+    "client_industry": "Developer Tools",
+    "date": "2026-06-30",
+    "outcome": "won",
+    "skills": [
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "OpenAPI",
+      "Docker",
+      "GitHub Actions"
+    ],
+    "summary": "Automated OpenAPI-to-TypeScript client codegen with CI schema drift detection and Docker Compose orchestration.",
+    "full_text": "Created a production monorepo architecture generating strongly typed TypeScript fetch/React-Query clients directly from FastAPI OpenAPI schemas, preventing frontend/backend contract drift in CI.",
+    "metrics": {
+      "contract_bugs": 0
+    },
+    "repo_url": "https://github.com/bilal-dev/openapi-ts-strict-starter",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_004",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "past_proposal",
+    "title": "Winning Proposal: Interactive Kanban Pipeline & Analytics Dashboard in React/Next.js",
+    "client_industry": "RevOps",
+    "date": "2026-04-03",
+    "outcome": "won",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Analytics"
+    ],
+    "summary": "Winning $3,800 proposal for a responsive Kanban board and funnel conversion analytics suite.",
+    "full_text": "For your RevOps pipeline board, I recently shipped a keyboard-accessible Next.js + TypeScript Kanban and funnel analytics suite backed by PostgreSQL materialized views (78ms p95 query latency). Milestone 1 (Day 4): Generated OpenAPI TypeScript client, auth, and live Kanban board with optimistic updates.",
+    "metrics": {
+      "contract_value_usd": 3800
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_005",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "OAuth 2.1 Token Vault & Third-Party API Integration Hub",
+    "client_industry": "FinTech",
+    "date": "2026-03-11",
+    "outcome": "won",
+    "skills": [
+      "OAuth 2.1",
+      "FastAPI",
+      "Security",
+      "PostgreSQL",
+      "Redis"
+    ],
+    "summary": "Implemented PKCE OAuth 2.1 authorization flows, encrypted token rotation, and polite rate-limited sync workers.",
+    "full_text": "Built an OAuth 2.1 PKCE integration layer storing refresh/access tokens encrypted with AES-128-CBC/HMAC (Fernet) and enforcing per-tenant sliding-window rate limits in Redis.",
+    "metrics": {
+      "security_audit_findings": 0
+    },
+    "repo_url": "https://github.com/bilal-dev/oauth21-encrypted-vault",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_006",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "Mobile-First Responsive Redesign & Playwright E2E Suite for Logistics App",
+    "client_industry": "Logistics",
+    "date": "2026-02-20",
+    "outcome": "replied",
+    "skills": [
+      "React",
+      "Tailwind CSS",
+      "Playwright",
+      "Accessibility",
+      "TypeScript"
+    ],
+    "summary": "Converted a desktop-only dispatch dashboard to mobile-responsive WCAG AA UI with 24 Playwright E2E tests.",
+    "full_text": "Refactored 32 complex data tables and approval drawers into mobile-responsive layouts tested across Chromium and mobile viewports in Playwright CI.",
+    "metrics": {
+      "lighthouse_accessibility": 98,
+      "playwright_tests": 24
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_007",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "github_repo",
+    "title": "fastapi-redis-sse-bridge: Resilient Pub/Sub Streaming for Long Background Jobs",
+    "client_industry": "Developer Tools",
+    "date": "2026-08-12",
+    "outcome": "won",
+    "skills": [
+      "FastAPI",
+      "Redis",
+      "SSE",
+      "WebSockets",
+      "Python"
+    ],
+    "summary": "Redis Streams + FastAPI SSE bridge with automatic client reconnection and replay.",
+    "full_text": "Built a production SSE streaming library bridging Redis Streams to browser EventSource clients with Last-Event-ID replay so page refreshes never lose in-flight progress.",
+    "metrics": {
+      "reconnect_loss_rate": "0%"
+    },
+    "repo_url": "https://github.com/bilal-dev/fastapi-redis-sse-bridge",
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_008",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "cv_section",
+    "title": "Curriculum Vitae — Full-Stack Engineering & Cloud Architecture Summary",
+    "client_industry": "Cross-Industry",
+    "date": "2026-09-01",
+    "outcome": "won",
+    "skills": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "AWS"
+    ],
+    "summary": "BS Computer Science; 8+ years building full-stack SaaS products, APIs, and containerized cloud deployments.",
+    "full_text": "Bilal Mahmood is a Principal Full-Stack Engineer with 8 years of experience delivering Next.js/React TypeScript frontends, FastAPI/Node.js microservices, PostgreSQL databases, and Docker Compose / AWS deployments.",
+    "metrics": {
+      "years_experience": 8,
+      "shipped_products": 22
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_009",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "past_proposal",
+    "title": "Winning Proposal: FastAPI Backend & Docker Compose Production Hardening",
+    "client_industry": "HealthTech",
+    "date": "2026-05-02",
+    "outcome": "won",
+    "skills": [
+      "FastAPI",
+      "Docker",
+      "PostgreSQL",
+      "Redis",
+      "CI/CD"
+    ],
+    "summary": "Winning $2,600 proposal for containerizing a multi-service Python + Postgres + Redis stack.",
+    "full_text": "I will consolidate your API, background workers, Postgres, and Redis into a health-checked Docker Compose stack with zero-downtime migrations and automated GitHub Actions tests within 7 days.",
+    "metrics": {
+      "contract_value_usd": 2600
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_010",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "Calendar & Email Automation Microservice with Google Workspace APIs",
+    "client_industry": "Productivity SaaS",
+    "date": "2026-01-30",
+    "outcome": "interview",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "Google Calendar API",
+      "Gmail API",
+      "OAuth"
+    ],
+    "summary": "Built free-slot discovery, tentative calendar holds, and draft-only email generation.",
+    "full_text": "Integrated Google Calendar FreeBusy queries and draft-only Gmail creation with human confirmation safeguards.",
+    "metrics": {
+      "booking_conflict_rate": "0%"
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_011",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "past_proposal",
+    "title": "Ignored Proposal (Lesson Learned): Overlong Wall of Text Without Clear Milestones",
+    "client_industry": "Retail",
+    "date": "2025-10-15",
+    "outcome": "ignored",
+    "skills": [
+      "React",
+      "Node.js"
+    ],
+    "summary": "480-word unstructured biography that buried relevant React experience.",
+    "full_text": "Dear Sir/Madam, I have been programming since 2017 and have worked on many websites using HTML, CSS, JavaScript, React, Node, MongoDB, MySQL, and PHP...",
+    "metrics": {
+      "word_count": 480
+    },
+    "repo_url": null,
+    "data_provenance": "synthetic"
+  },
+  {
+    "evidence_id": "ev_fs_012",
+    "freelancer_id": "persona_fullstack_02",
+    "type": "case_study",
+    "title": "Playwright Visual & End-to-End Regression Harness for Financial Dashboards",
+    "client_industry": "FinTech",
+    "date": "2026-07-04",
+    "outcome": "won",
+    "skills": [
+      "Playwright",
+      "TypeScript",
+      "Next.js",
+      "GitHub Actions"
+    ],
+    "summary": "Automated end-to-end testing covering auth, degraded API banners, and approval workflows.",
+    "full_text": "Built deterministic Playwright E2E suites simulating backend outages, degraded-mode banners, and multi-step approval flows in CI.",
+    "metrics": {
+      "flaky_test_rate": "0.2%"
+    },
+    "repo_url": "https://github.com/bilal-dev/playwright-resilience-suite",
+    "data_provenance": "synthetic"
+  }
+]

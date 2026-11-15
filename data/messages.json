@@ -1,0 +1,186 @@
+[
+  {
+    "thread_id": "thread_001",
+    "job_id": "job_001",
+    "client_id": "cli_001",
+    "freelancer_id": "persona_aiml_01",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_001_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_aiml_001 (62% contract review reduction, 1.8% unsupported claim rate).",
+        "timestamp": "2026-10-29T12:10:00Z"
+      },
+      {
+        "message_id": "msg_001_2",
+        "sender": "client",
+        "text": "Hi Dr. Tariq — your legal contract copilot case study is spot on. Two quick questions: (1) Can PostgresSaver handle concurrent human approvals across 20 reviewers, and (2) are you free for a 20-minute architecture call tomorrow or Thursday?",
+        "timestamp": "2026-10-29T14:05:00Z"
+      }
+    ],
+    "expected_intent": "interview_request",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_002",
+    "job_id": "job_002",
+    "client_id": "cli_002",
+    "freelancer_id": "persona_aiml_01",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_002_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_aiml_002 (+31 pt Recall@5 gain with BM25+BGE-M3+reranker).",
+        "timestamp": "2026-10-29T12:20:00Z"
+      },
+      {
+        "message_id": "msg_002_2",
+        "sender": "client",
+        "text": "Thanks for sharing those benchmarks. Our Q4 budget ceiling is $3,100 fixed rather than $3,600. Could we lock $3,100 if we narrow Milestone 3 to Python SDK delivery without a custom UI?",
+        "timestamp": "2026-10-29T15:10:00Z"
+      }
+    ],
+    "expected_intent": "rate_negotiation",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_003",
+    "job_id": "job_003",
+    "client_id": "cli_003",
+    "freelancer_id": "persona_fullstack_02",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_003_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_fs_001 and ev_fs_003.",
+        "timestamp": "2026-10-29T12:40:00Z"
+      },
+      {
+        "message_id": "msg_003_2",
+        "sender": "client",
+        "text": "Love the OpenAPI TypeScript codegen approach. How do your Playwright tests mock SSE streams and simulate backend outages in GitHub Actions?",
+        "timestamp": "2026-10-29T16:00:00Z"
+      }
+    ],
+    "expected_intent": "technical_question",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_004",
+    "job_id": "job_004",
+    "client_id": "cli_004",
+    "freelancer_id": "persona_aiml_01",
+    "status": "interview",
+    "messages": [
+      {
+        "message_id": "msg_004_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_aiml_003 (MCP Python SDK servers with idempotency).",
+        "timestamp": "2026-10-29T13:00:00Z"
+      },
+      {
+        "message_id": "msg_004_2",
+        "sender": "client",
+        "text": "We would like to invite you to an interview with our VP of Engineering. Please propose 2-3 UTC time slots over the next 48 hours.",
+        "timestamp": "2026-10-29T16:30:00Z"
+      }
+    ],
+    "expected_intent": "interview_request",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_005",
+    "job_id": "job_009",
+    "client_id": "cli_005",
+    "freelancer_id": "persona_aiml_01",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_005_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal recommending pgvector hybrid RAG + claim verification.",
+        "timestamp": "2026-10-29T13:15:00Z"
+      },
+      {
+        "message_id": "msg_005_2",
+        "sender": "client",
+        "text": "Hey! Instead of paying through the platform here, can we move to WhatsApp (+1-555-014-9921) and pay you directly via PayPal so we both avoid fees?",
+        "timestamp": "2026-10-29T17:00:00Z"
+      }
+    ],
+    "expected_intent": "scam_or_offplatform",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_006",
+    "job_id": "job_010",
+    "client_id": "cli_007",
+    "freelancer_id": "persona_aiml_01",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_006_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_aiml_005 and ev_aiml_006.",
+        "timestamp": "2026-10-29T13:30:00Z"
+      },
+      {
+        "message_id": "msg_006_2",
+        "sender": "client",
+        "text": "Clarifying scope: our target hardware is a single NVIDIA L4 (24GB VRAM). Can Qwen3-14B (4-bit) and BGE-M3 run concurrently within 24GB VRAM?",
+        "timestamp": "2026-10-29T17:25:00Z"
+      }
+    ],
+    "expected_intent": "scope_clarification",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_007",
+    "job_id": "job_011",
+    "client_id": "cli_003",
+    "freelancer_id": "persona_fullstack_02",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_007_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_fs_005 (OAuth 2.1 PKCE + Fernet vault).",
+        "timestamp": "2026-10-29T13:45:00Z"
+      },
+      {
+        "message_id": "msg_007_2",
+        "sender": "client",
+        "text": "Everything looks solid. We are ready to send the Milestone 1 contract offer at $2,300 fixed starting Monday—please confirm if that works for your schedule.",
+        "timestamp": "2026-10-29T18:00:00Z"
+      }
+    ],
+    "expected_intent": "offer_signal",
+    "data_provenance": "synthetic"
+  },
+  {
+    "thread_id": "thread_008",
+    "job_id": "job_013",
+    "client_id": "cli_002",
+    "freelancer_id": "persona_aiml_01",
+    "status": "replied",
+    "messages": [
+      {
+        "message_id": "msg_008_1",
+        "sender": "freelancer",
+        "text": "Submitted proposal citing ev_aiml_010.",
+        "timestamp": "2026-10-29T14:00:00Z"
+      },
+      {
+        "message_id": "msg_008_2",
+        "sender": "client",
+        "text": "Thanks for applying! Could you clarify whether you use RAGAS or custom deterministic metrics in CI?",
+        "timestamp": "2026-10-29T18:20:00Z"
+      }
+    ],
+    "expected_intent": "technical_question",
+    "data_provenance": "synthetic"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "freelancer_id": "persona_aiml_01",
+    "name": "Dr. Ayesha Tariq",
+    "headline": "Senior AI/ML & Agentic Systems Engineer | LangGraph, RAG, MCP & Production LLMs",
+    "primary_domain": "ai_ml",
+    "hourly_rate_usd": 85.0,
+    "min_fixed_budget_usd": 800.0,
+    "weekly_availability_hours": 30,
+    "connects_balance": 84,
+    "weekly_connects_budget": 60,
+    "skills": [
+      "Python",
+      "LangGraph",
+      "LangChain",
+      "RAG",
+      "Hybrid Search",
+      "pgvector",
+      "Qdrant",
+      "FastAPI",
+      "MCP",
+      "PyTorch",
+      "vLLM",
+      "Ollama",
+      "Docker",
+      "PostgreSQL",
+      "Redis",
+      "Evaluation & RAGAS"
+    ],
+    "style_preferences": [
+      "Lead immediately with a concrete architecture insight tailored to the client's stack.",
+      "Cite specific measurable metrics from past case studies (recall, latency, cost reduction).",
+      "Avoid generic openings like 'I am passionate about AI' or 'I read your job post carefully'.",
+      "Keep cover letters concise (150-240 words) with 2-3 crisp milestone bullets."
+    ],
+    "saved_searches": [
+      {
+        "name": "Agentic AI & LangGraph",
+        "query": "LangGraph multi-agent RAG MCP",
+        "min_budget": 800
+      },
+      {
+        "name": "Production RAG & Search",
+        "query": "hybrid retrieval pgvector reranking FastAPI",
+        "min_budget": 600
+      }
+    ],
+    "data_provenance": "synthetic"
+  },
+  {
+    "freelancer_id": "persona_fullstack_02",
+    "name": "Bilal Mahmood",
+    "headline": "Principal Full-Stack & Cloud Product Engineer | Next.js, TypeScript, FastAPI & Postgres",
+    "primary_domain": "fullstack_web",
+    "hourly_rate_usd": 75.0,
+    "min_fixed_budget_usd": 700.0,
+    "weekly_availability_hours": 35,
+    "connects_balance": 72,
+    "weekly_connects_budget": 60,
+    "skills": [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "FastAPI",
+      "Python",
+      "Node.js",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Playwright",
+      "REST APIs",
+      "WebSockets",
+      "SSE",
+      "Tailwind CSS",
+      "AWS",
+      "Stripe Billing"
+    ],
+    "style_preferences": [
+      "Focus on shipping speed, end-to-end type safety, and automated Playwright/CI verification.",
+      "Reference deployed SaaS applications with concrete uptime and p95 latency numbers.",
+      "Propose a clear Milestone 1 deliverable within the first 5 business days.",
+      "Never use filler phrases or unverified guarantees."
+    ],
+    "saved_searches": [
+      {
+        "name": "Next.js + FastAPI SaaS",
+        "query": "Next.js TypeScript FastAPI PostgreSQL",
+        "min_budget": 700
+      },
+      {
+        "name": "Real-time AI Web Apps",
+        "query": "React streaming SSE dashboard API",
+        "min_budget": 800
+      }
+    ],
+    "data_provenance": "synthetic"
+  }
+]

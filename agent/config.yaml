@@ -1,0 +1,213 @@
+==============================================================================GigBid Runtime & Orchestration ConfigurationAll model routing, RAG design choices, budgets, guardrails, and marketplacepolicy parameters live here (never hardcoded in Python modules).==============================================================================app:
+name: "GigBid"
+version: "0.2.0"
+course: "AI-4016"marketplace:Switched via MARKETPLACE_MODE env var: "gigsim" | "upwork_live"mode: "${MARKETPLACE_MODE:gigsim}"
+gigsim:
+base_url: "${GIGSIM_BASE_URL:http://localhost:8081}"
+api_token: "${GIGSIM_API_TOKEN:gigsim-dev-token-2026}"
+timeout_seconds: 10.0
+max_retries: 3
+backoff_base_seconds: 0.75
+rate_limit_rpm: 60
+upwork_live:
+mcp_url: "${UPWORK_MCP_URL:https://mcp.upwork.com/mcp}"
+# Conservative schedule to respect Upwork API terms and avoid scraping behavior
+poll_interval_minutes: 30
+max_jobs_per_poll: 25
+draft_only_writes: true==============================================================================Model Profiles: "open" (default, zero-API-cost capable) vs "paid" (optional)==============================================================================models:
+active_profile: "${MODEL_PROFILE:open}"Shared across BOTH profiles (runs locally on CPU/GPU)embeddings:
+model_name: "${EMBEDDING_MODEL:BAAI/bge-m3}"
+dimension: 1024
+device: "${EMBEDDING_DEVICE:cpu}"
+normalize_embeddings: true
+batch_size: 32reranker:
+model_name: "${RERANKER_MODEL:BAAI/bge-reranker-v2-m3}"
+device: "${RERANKER_DEVICE:cpu}"
+top_n: 8profiles:
+open:
+description: "Open-weight models only (local Ollama/vLLM or hosted open providers)"
+default_provider: "ollama"
+ollama_base_url: "${OLLAMA_BASE_URL:http://localhost:11434}"
+openrouter_base_url: "https://openrouter.ai/api/v1"
+groq_base_url: "https://api.groq.com/openai/v1"
+node_routing:
+scout:
+primary: "ollama/qwen3:8b"
+fallback: "groq/llama-3.3-70b-versatile"
+temperature: 0.0
+max_tokens: 1024
+analyst:
+primary: "ollama/qwen3:14b"
+fallback: "openrouter/openai/gpt-oss-20b"
+temperature: 0.1
+max_tokens: 2048
+risk_assessor:
+primary: "ollama/qwen3:8b"
+fallback: "groq/llama-3.3-70b-versatile"
+temperature: 0.0
+max_tokens: 1536
+fit_matcher:
+primary: "ollama/qwen3:14b"
+fallback: "openrouter/openai/gpt-oss-20b"
+temperature: 0.1
+max_tokens: 2048
+pricing:
+primary: "ollama/qwen3:14b"
+fallback: "openrouter/openai/gpt-oss-20b"
+temperature: 0.1
+max_tokens: 1536
+writer:
+primary: "ollama/qwen3:32b"
+fallback: "openrouter/openai/gpt-oss-120b"
+temperature: 0.35
+max_tokens: 3072
+verifier:
+primary: "ollama/qwen3:14b"
+fallback: "openrouter/openai/gpt-oss-20b"
+temperature: 0.0
+max_tokens: 2048
+critic:
+primary: "ollama/qwen3:32b"
+fallback: "openrouter/openai/gpt-oss-120b"
+temperature: 0.15
+max_tokens: 2048
+compliance:
+primary: "ollama/qwen3:8b"
+fallback: "groq/llama-3.3-70b-versatile"
+temperature: 0.0
+max_tokens: 1536
+client_liaison:
+primary: "ollama/qwen3:32b"
+fallback: "openrouter/openai/gpt-oss-120b"
+temperature: 0.25
+max_tokens: 2048paid:
+  description: "Optional frontier API profile for ablation & quality comparison"
+  default_provider: "openai"
+  node_routing:
+    scout:
+      primary: "openai/gpt-4o-mini"
+      fallback: "ollama/qwen3:8b"
+      temperature: 0.0
+      max_tokens: 1024
+    analyst:
+      primary: "openai/gpt-4o-mini"
+      fallback: "openai/gpt-4o"
+      temperature: 0.1
+      max_tokens: 2048
+    risk_assessor:
+      primary: "openai/gpt-4o-mini"
+      fallback: "ollama/qwen3:8b"
+      temperature: 0.0
+      max_tokens: 1536
+    fit_matcher:
+      primary: "openai/gpt-4o"
+      fallback: "openai/gpt-4o-mini"
+      temperature: 0.1
+      max_tokens: 2048
+    pricing:
+      primary: "openai/gpt-4o-mini"
+      fallback: "openai/gpt-4o"
+      temperature: 0.1
+      max_tokens: 1536
+    writer:
+      primary: "anthropic/claude-sonnet-4-20250514"
+      fallback: "openai/gpt-4o"
+      temperature: 0.35
+      max_tokens: 3072
+    verifier:
+      primary: "openai/gpt-4o-mini"
+      fallback: "openai/gpt-4o"
+      temperature: 0.0
+      max_tokens: 2048
+    critic:
+      primary: "anthropic/claude-sonnet-4-20250514"
+      fallback: "openai/gpt-4o"
+      temperature: 0.15
+      max_tokens: 2048
+    compliance:
+      primary: "openai/gpt-4o-mini"
+      fallback: "ollama/qwen3:8b"
+      temperature: 0.0
+      max_tokens: 1536
+    client_liaison:
+      primary: "anthropic/claude-sonnet-4-20250514"
+      fallback: "openai/gpt-4o"
+      temperature: 0.25
+      max_tokens: 2048
+==============================================================================Retrieval-Augmented Generation (RAG) Configuration==============================================================================rag:Selectable variant: v0_naive | v1_decomp | v2_hybrid | v3_reranked |v4_outcome | v5_multivector | v6_contextual | v7_hyde | v8_corrective | v9_skill_graphactive_variant: "v3_reranked"
+chunk_size_tokens: 420
+chunk_overlap_tokens: 64
+top_k_dense: 15
+top_k_bm25: 15
+top_k_final: 6
+rrf_k: 60
+outcome_boost_weights:
+won: 1.35
+interview: 1.20
+replied: 1.10
+viewed: 1.02
+ignored: 0.90
+claim_verification:
+enabled: true
+min_support_score: 0.72
+strip_unsupported_claims: true==============================================================================LangGraph Orchestration, Loops & Latency/Cost Budgets==============================================================================orchestration:
+max_critic_revisions: 2
+max_graph_steps: 24
+max_tokens_per_thread: 36000
+node_timeout_seconds: 45
+node_max_retries: 2
+checkpoint_backend: "postgres"budgets:Declared p95 latency and cost ceilings (Requirement E5)target_p95_job_analysis_seconds: 8.5
+target_p95_proposal_seconds: 22.0
+max_cost_per_job_analysis_usd: 0.015
+max_cost_per_proposal_usd: 0.050
+default_weekly_connects_budget: 60==============================================================================Autonomy, Guardrails & Memory Promotion Rules==============================================================================guardrails:Non-negotiable: auto_send must remain permanently falseauto_send: false
+allow_auto_skip: true
+auto_skip_min_fit_score: 0.32
+auto_skip_max_risk_score: 0.75
+pii_masking_enabled: true
+untrusted_data_delimiters:
+job_post: ["<UNTRUSTED_JOB_POST>", "</UNTRUSTED_JOB_POST>"]
+client_message: ["<UNTRUSTED_CLIENT_MESSAGE>", "</UNTRUSTED_CLIENT_MESSAGE>"]
+prompt_injection_patterns:
+- "ignore previous instructions"
+- "ignore all prior instructions"
+- "system prompt"
+- "disregard your rules"
+- "output your instructions"
+- "send via whatsapp"
+- "pay outside upwork"
+- "telegram @"memory:
+style_memory:
+enabled: true
+min_edit_occurrences: 2
+max_rules_per_user: 25
+require_human_diff_signal: true
+outcome_memory:
+enabled: true
+promote_on_outcomes: ["replied", "interview", "won"]
+never_store_raw_tool_outputs: true==============================================================================Externalized Marketplace Policy Rules (Change-Request Ready)==============================================================================policy:
+policy_pack_path: "data/policy_pack/marketplace_policy.md"
+max_connects_per_proposal: 16
+min_connects_balance_reserve: 4
+min_expected_contract_to_connect_ratio: 15.0
+require_payment_verified_above_budget: 1500.0
+max_proposal_words: 320
+min_proposal_words: 95
+platform_fee_tiers:
+- up_to_usd: 500
+fee_rate: 0.15
+- up_to_usd: 10000
+fee_rate: 0.10
+- up_to_usd: null
+fee_rate: 0.05
+prohibited_claim_phrases:
+- "100% guarantee"
+- "guaranteed ranking"
+- "work for free"
+- "free sample project"
+- "contact me at"
+- "my whatsapp"
+- "my telegram"
+- "pay via paypal"
+- "pay via crypto"
+- "off-platform"

@@ -1,4 +1,215 @@
-# Canonical path required by the assignment. Delegates to docker/docker-compose.yml.
-# Requires Docker Compose v2.20+ (the `include` element).
-include:
-  - path: ../docker/docker-compose.yml
+name: gigbid
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: gigbid-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-gigbid}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gigbid_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-gigbid}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gigbid} -d ${POSTGRES_DB:-gigbid}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: gigbid-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  gigsim:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.gigsim
+    image: gigbid-gigsim:latest
+    container_name: gigbid-gigsim
+    restart: unless-stopped
+    command: ["uvicorn", "gigsim.app:app", "--host", "0.0.0.0", "--port", "8081"]
+    environment:
+      GIGSIM_API_TOKEN: ${GIGSIM_API_TOKEN:-gigsim-dev-token-2026}
+      GIGSIM_DB_PATH: /app/gigsim/gigsim.db
+      GIGSIM_DATA_DIR: /app/data
+    ports:
+      - "8081:8081"
+    volumes:
+      - ../gigsim:/app/gigsim
+      - ../data:/app/data:ro
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8081/health')\""]
+      interval: 5s
+      timeout: 4s
+      retries: 10
+
+  mcp-portfolio:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.mcp
+    image: gigbid-mcp:latest
+    container_name: gigbid-mcp-portfolio
+    restart: unless-stopped
+    command: ["python", "-m", "mcp_servers.portfolio.server"]
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-gigbid_dev_password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      PORTFOLIO_MCP_PORT: 8091
+    ports:
+      - "8091:8091"
+    volumes:
+      - ../data:/app/data:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  mcp-marketplace:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.mcp
+    image: gigbid-mcp:latest
+    container_name: gigbid-mcp-marketplace
+    restart: unless-stopped
+    command: ["python", "-m", "mcp_servers.marketplace.server"]
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-gigbid_dev_password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      MARKETPLACE_MODE: ${MARKETPLACE_MODE:-gigsim}
+      GIGSIM_BASE_URL: http://gigsim:8081
+      GIGSIM_API_TOKEN: ${GIGSIM_API_TOKEN:-gigsim-dev-token-2026}
+      MARKETPLACE_MCP_PORT: 8092
+    ports:
+      - "8092:8092"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      gigsim:
+        condition: service_healthy
+
+  mcp-workspace:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.mcp
+    image: gigbid-mcp:latest
+    container_name: gigbid-mcp-workspace
+    restart: unless-stopped
+    command: ["python", "-m", "mcp_servers.workspace.server"]
+    env_file:
+      - ../.env
+    environment:
+      WORKSPACE_MCP_PORT: 8093
+    ports:
+      - "8093:8093"
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    image: gigbid-api:latest
+    container_name: gigbid-api
+    restart: unless-stopped
+    command: ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-gigbid_dev_password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      REDIS_URL: redis://redis:6379/0
+      ARQ_REDIS_URL: redis://redis:6379/1
+      MARKETPLACE_MODE: ${MARKETPLACE_MODE:-gigsim}
+      GIGSIM_BASE_URL: http://gigsim:8081
+      GIGSIM_API_TOKEN: ${GIGSIM_API_TOKEN:-gigsim-dev-token-2026}
+      PORTFOLIO_MCP_URL: http://mcp-portfolio:8091/mcp
+      MARKETPLACE_MCP_URL: http://mcp-marketplace:8092/mcp
+      WORKSPACE_MCP_URL: http://mcp-workspace:8093/mcp
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+      AUTO_SEND_ENABLED: "false"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      gigsim:
+        condition: service_healthy
+      mcp-portfolio:
+        condition: service_started
+      mcp-marketplace:
+        condition: service_started
+      mcp-workspace:
+        condition: service_started
+
+  worker:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    image: gigbid-api:latest
+    container_name: gigbid-worker
+    restart: unless-stopped
+    command: ["python", "-m", "worker.main"]
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-gigbid}:${POSTGRES_PASSWORD:-gigbid_dev_password}@postgres:5432/${POSTGRES_DB:-gigbid}
+      REDIS_URL: redis://redis:6379/0
+      ARQ_REDIS_URL: redis://redis:6379/1
+      MARKETPLACE_MODE: ${MARKETPLACE_MODE:-gigsim}
+      GIGSIM_BASE_URL: http://gigsim:8081
+      GIGSIM_API_TOKEN: ${GIGSIM_API_TOKEN:-gigsim-dev-token-2026}
+      PORTFOLIO_MCP_URL: http://mcp-portfolio:8091/mcp
+      MARKETPLACE_MCP_URL: http://mcp-marketplace:8092/mcp
+      WORKSPACE_MCP_URL: http://mcp-workspace:8093/mcp
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+      AUTO_SEND_ENABLED: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      gigsim:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: ../../infra/docker/Dockerfile.web
+    image: gigbid-web:latest
+    container_name: gigbid-web
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: gigbid-ollama
+    profiles: ["ollama", "local-gpu"]
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollamadata:/root/.ollama
+
+volumes:
+  pgdata:
+  redisdata:
+  ollamadata:
