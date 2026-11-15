@@ -105,9 +105,7 @@ class WorkspaceStore:
                 base_day = base_day.replace(tzinfo=UTC)
         else:
             now = datetime.now(UTC)
-            base_day = (now + timedelta(days=1)).replace(
-                hour=0, minute=0, second=0, microsecond=0
-            )
+            base_day = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
 
         booked = self.get_booked_starts()
         candidate_hours_utc = (14, 16, 18)  # 14:00, 16:00, 18:00 UTC business slots

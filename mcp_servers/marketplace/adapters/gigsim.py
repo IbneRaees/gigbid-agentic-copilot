@@ -63,12 +63,10 @@ class GigSimMarketplaceAdapter(MarketplacePort):
         backoff_base_seconds: float = 0.4,
         client: httpx.AsyncClient | None = None,
     ) -> None:
-        self.base_url = (
-            base_url or os.getenv("GIGSIM_BASE_URL", "http://localhost:8081")
-        ).rstrip("/")
-        self.api_token = api_token or os.getenv(
-            "GIGSIM_API_TOKEN", "gigsim-dev-token-2026"
+        self.base_url = (base_url or os.getenv("GIGSIM_BASE_URL", "http://localhost:8081")).rstrip(
+            "/"
         )
+        self.api_token = api_token or os.getenv("GIGSIM_API_TOKEN", "gigsim-dev-token-2026")
         self.timeout_seconds = timeout_seconds
         self.max_retries = max(1, max_retries)
         self.backoff_base_seconds = backoff_base_seconds
@@ -89,9 +87,7 @@ class GigSimMarketplaceAdapter(MarketplacePort):
         params: dict[str, Any] | None = None,
         json_body: dict[str, Any] | None = None,
     ) -> Any:
-        cleaned_params = (
-            {k: v for k, v in params.items() if v is not None} if params else None
-        )
+        cleaned_params = {k: v for k, v in params.items() if v is not None} if params else None
         last_exc: Exception | None = None
 
         for attempt in range(1, self.max_retries + 1):
@@ -286,9 +282,7 @@ class GigSimMarketplaceAdapter(MarketplacePort):
             source_mode="gigsim",
         )
 
-    async def list_messages(
-        self, thread_id: str | None = None
-    ) -> list[MarketplaceThread]:
+    async def list_messages(self, thread_id: str | None = None) -> list[MarketplaceThread]:
         if thread_id:
             data = await self._request("GET", f"/threads/{thread_id}/messages")
             return [self._parse_thread(data)]
@@ -409,12 +403,8 @@ class GigSimMarketplaceAdapter(MarketplacePort):
                 estimated_fee_usd=float(raw_preview.get("estimated_fee_usd", 0.0)),
                 estimated_net_usd=float(raw_preview.get("estimated_net_usd", 0.0)),
                 connects_cost=int(raw_preview.get("connects_cost", 0)),
-                current_connects_balance=int(
-                    raw_preview.get("current_connects_balance", 0)
-                ),
-                remaining_connects_after=int(
-                    raw_preview.get("remaining_connects_after", 0)
-                ),
+                current_connects_balance=int(raw_preview.get("current_connects_balance", 0)),
+                remaining_connects_after=int(raw_preview.get("remaining_connects_after", 0)),
                 policy_passed=bool(raw_preview.get("policy_passed", True)),
                 policy_warnings=list(raw_preview.get("policy_warnings", [])),
             )

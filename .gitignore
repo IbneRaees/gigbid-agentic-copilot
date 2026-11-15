@@ -27,3 +27,6 @@ evals/results/*
 !evals/results/.gitkeep
 logs/
 mcp_servers/workspace/*.db
+
+*.db-shm
+*.db-wal

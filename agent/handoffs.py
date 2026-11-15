@@ -278,9 +278,7 @@ class ClientReplyDraft(HandOffBase):
     cited_evidence_ids: list[str] = Field(default_factory=list)
     compliance_passed: bool = Field(default=True)
     requires_human_approval: Literal[True] = True
-    generated_at: str = Field(
-        default_factory=lambda: datetime.now(UTC).isoformat()
-    )
+    generated_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 
 
 __all__ = [

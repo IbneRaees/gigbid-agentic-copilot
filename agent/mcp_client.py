@@ -205,9 +205,7 @@ class GigBidMCPClientManager:
     ) -> list[BaseTool]:
         """Return only tools marked `readOnlyHint=True` (least-privilege allowlist for analysis nodes)."""
         tools = (
-            await self.get_tools_by_server(
-                server_name, trace_id=trace_id, user_id=user_id
-            )
+            await self.get_tools_by_server(server_name, trace_id=trace_id, user_id=user_id)
             if server_name
             else await self.get_all_tools(trace_id=trace_id, user_id=user_id)
         )
@@ -216,9 +214,7 @@ class GigBidMCPClientManager:
             meta = getattr(tool, "metadata", None) or {}
             annotations = meta.get("annotations") if isinstance(meta, dict) else None
             if isinstance(annotations, dict):
-                is_ro = annotations.get("readOnlyHint") or annotations.get(
-                    "read_only_hint"
-                )
+                is_ro = annotations.get("readOnlyHint") or annotations.get("read_only_hint")
             else:
                 is_ro = getattr(annotations, "readOnlyHint", None) or getattr(
                     annotations, "read_only_hint", None
@@ -237,9 +233,7 @@ class GigBidMCPClientManager:
         user_id: str | None = None,
     ) -> Any:
         """Invoke a named MCP tool on a target server with trace propagation."""
-        tools = await self.get_tools_by_server(
-            server_name, trace_id=trace_id, user_id=user_id
-        )
+        tools = await self.get_tools_by_server(server_name, trace_id=trace_id, user_id=user_id)
         target = next((t for t in tools if t.name == tool_name), None)
         if target is None:
             available = [t.name for t in tools]

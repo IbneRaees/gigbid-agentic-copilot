@@ -211,9 +211,7 @@ class MarketplacePort(Protocol):
         """Retrieve current Connects balance and recent ledger transactions."""
         ...
 
-    async def list_messages(
-        self, thread_id: str | None = None
-    ) -> list[MarketplaceThread]:
+    async def list_messages(self, thread_id: str | None = None) -> list[MarketplaceThread]:
         """List all conversation threads or fetch a specific thread's messages."""
         ...
 

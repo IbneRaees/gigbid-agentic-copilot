@@ -334,8 +334,10 @@ def build_secured_mcp_asgi_app(
     rate_limiter: SlidingWindowRateLimiter | None = None,
 ) -> Starlette:
     """Wrap an MCP server's Streamable HTTP ASGI app with Bearer auth, rate limits, and `/health`."""
-    token = expected_token or os.getenv("MCP_SERVER_TOKEN") or os.getenv(
-        "GIGSIM_API_TOKEN", "gigsim-dev-token-2026"
+    token = (
+        expected_token
+        or os.getenv("MCP_SERVER_TOKEN")
+        or os.getenv("GIGSIM_API_TOKEN", "gigsim-dev-token-2026")
     )
     rpm = rate_limit_rpm or int(os.getenv("MCP_RATE_LIMIT_RPM", "120"))
     limiter = rate_limiter or SlidingWindowRateLimiter(max_requests_per_minute=rpm)

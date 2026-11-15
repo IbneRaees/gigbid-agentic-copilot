@@ -89,9 +89,7 @@ class PortfolioRepository:
         filter_type = active_filters.get("type")
         filter_outcome = active_filters.get("outcome")
         filter_skill = (
-            str(active_filters["skill"]).lower().strip()
-            if active_filters.get("skill")
-            else None
+            str(active_filters["skill"]).lower().strip() if active_filters.get("skill") else None
         )
         exclude_ignored = bool(active_filters.get("exclude_ignored", False))
 
@@ -116,7 +114,9 @@ class PortfolioRepository:
             full_text = str(item.get("full_text", ""))
             industry = str(item.get("client_industry", ""))
 
-            doc_tokens = _tokenize(f"{title} {summary} {full_text} {industry} {' '.join(item_skills)}")
+            doc_tokens = _tokenize(
+                f"{title} {summary} {full_text} {industry} {' '.join(item_skills)}"
+            )
             overlap = len(query_tokens & doc_tokens)
             lexical_score = overlap / max(1, len(query_tokens))
 
@@ -385,9 +385,7 @@ def build_portfolio_mcp_server(
             f"{ev['summary']} | Metrics: {json.dumps(ev['metrics'])}"
             for ev in evidence
         )
-        style_rules = "\n".join(
-            f"- {rule}" for rule in profile.get("style_preferences", [])
-        )
+        style_rules = "\n".join(f"- {rule}" for rule in profile.get("style_preferences", []))
         return (
             f"You are drafting a client screening question response for {profile.get('name', freelancer_id)} "
             f"({profile.get('headline', '')}).\n\n"
@@ -411,7 +409,7 @@ def build_portfolio_mcp_server(
         key_requirement: str,
         freelancer_id: str = "persona_aiml_01",
     ) -> str:
-        profile = repo.get_freelancer_profile(freelancer_id)
+        repo.get_freelancer_profile(freelancer_id)
         evidence = repo.search_evidence(
             requirement=f"{job_title} {key_requirement}",
             k=2,

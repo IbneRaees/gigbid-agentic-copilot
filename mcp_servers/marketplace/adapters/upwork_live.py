@@ -101,14 +101,10 @@ class UpworkLiveMarketplaceAdapter(MarketplacePort):
             "params": {"name": tool_name, "arguments": arguments},
         }
         if self._external_client is not None:
-            resp = await self._external_client.post(
-                self.mcp_url, json=rpc_payload, headers=headers
-            )
+            resp = await self._external_client.post(self.mcp_url, json=rpc_payload, headers=headers)
         else:
             async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
-                resp = await client.post(
-                    self.mcp_url, json=rpc_payload, headers=headers
-                )
+                resp = await client.post(self.mcp_url, json=rpc_payload, headers=headers)
         resp.raise_for_status()
         body = resp.json()
         if "error" in body:
@@ -169,7 +165,9 @@ class UpworkLiveMarketplaceAdapter(MarketplacePort):
                 )
             )
         return MarketplaceJobSearchResult(
-            total=int(result.get("total", len(parsed))) if isinstance(result, dict) else len(parsed),
+            total=int(result.get("total", len(parsed)))
+            if isinstance(result, dict)
+            else len(parsed),
             limit=limit,
             offset=offset,
             jobs=parsed,
@@ -252,9 +250,7 @@ class UpworkLiveMarketplaceAdapter(MarketplacePort):
             source_mode="upwork_live",
         )
 
-    async def list_messages(
-        self, thread_id: str | None = None
-    ) -> list[MarketplaceThread]:
+    async def list_messages(self, thread_id: str | None = None) -> list[MarketplaceThread]:
         if not self._is_authenticated():
             return []
         result = await self._call_upwork_mcp_tool(
@@ -284,9 +280,9 @@ class UpworkLiveMarketplaceAdapter(MarketplacePort):
         dry_run: bool,
     ) -> MarketplaceProposalResult:
         """Prepare a draft-only response that NEVER submits live or spends Connects."""
-        digest = hashlib.sha256(
-            f"{idempotency_key}:{job_id}:{freelancer_id}".encode()
-        ).hexdigest()[:10]
+        digest = hashlib.sha256(f"{idempotency_key}:{job_id}:{freelancer_id}".encode()).hexdigest()[
+            :10
+        ]
         fee = _compute_upwork_fee(proposed_rate)
         preview = ProposalPreviewSummary(
             job_id=job_id,

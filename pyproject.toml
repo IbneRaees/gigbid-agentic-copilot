@@ -70,4 +70,5 @@ target-version = "py311"
 extend-exclude = ["gigsim", "data"]   # gigsim/ is provided and must not be modified
 
 [tool.ruff.lint]
+ignore = ["E501"]
 select = ["E", "F", "I", "UP", "B", "ASYNC"]
