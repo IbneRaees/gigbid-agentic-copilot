@@ -25,3 +25,5 @@ out/
 data/raw/
 evals/results/*
 !evals/results/.gitkeep
+logs/
+mcp_servers/workspace/*.db
