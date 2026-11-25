@@ -1,0 +1,16 @@
+{
+  "built_at": "2026-11-25T17:42:04.461351+00:00",
+  "total_chunks": 128,
+  "portfolio_chunks": 74,
+  "policy_chunks": 54,
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "embedding_backend": "sentence_transformers",
+  "embedding_dim": 384,
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "reranker_backend": "cross_encoder",
+  "sources_loaded": [
+    "data/portfolio_items.json",
+    "data/freelancers.json",
+    "data/policy_pack/marketplace_policy.md"
+  ]
+}
