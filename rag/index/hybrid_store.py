@@ -79,6 +79,9 @@ class EmbeddingBackend:
             self.dim = FALLBACK_DIM
             return
         try:
+            import os
+            if os.getenv("GIGBID_LIGHTWEIGHT_RAG", "false").lower() == "true":
+                raise RuntimeError("Lightweight RAG mode enabled")
             from sentence_transformers import SentenceTransformer
 
             model = SentenceTransformer(self.model_name, device="cpu")
@@ -160,6 +163,9 @@ class CrossEncoderBackend:
             self.backend_mode = "lexical_interaction_fallback"
             return
         try:
+            import os
+            if os.getenv("GIGBID_LIGHTWEIGHT_RAG", "false").lower() == "true":
+                raise RuntimeError("Lightweight RAG mode enabled")
             from sentence_transformers import CrossEncoder
 
             self._ce_model = CrossEncoder(self.model_name, device="cpu", max_length=512)
