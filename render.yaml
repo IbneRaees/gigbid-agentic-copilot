@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: gigbid-api
+    runtime: docker
+    dockerfilePath: ./infra/docker/Dockerfile.api
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MARKETPLACE_MODE
+        value: gigsim
+      - key: MODEL_PROFILE
+        value: open
+      - key: GIGBID_USE_MCP
+        value: "false"
+      - key: GIGSIM_BASE_URL
+        value: http://127.0.0.1:8081
+      - key: GIGSIM_API_TOKEN
+        value: gigsim-dev-token-2026
+      - key: AUTO_SEND_ENABLED
+        value: "false"
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+  - type: web
+    name: gigbid-web
+    runtime: node
+    rootDir: apps/web
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start -- -p $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: "20.20.2"
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
