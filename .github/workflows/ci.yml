@@ -1,0 +1,66 @@
+name: GigBid CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      MODEL_PROFILE: offline_demo
+      GIGBID_OFFLINE_EMBEDDINGS: "true"
+      GIGBID_USE_MCP: "false"
+      MARKETPLACE_MODE: gigsim
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Ruff lint
+        run: uv run ruff check agent apps rag mcp_servers worker evals tests
+
+      - name: Run unit, contract, and integration tests
+        run: uv run pytest tests/ -v
+
+      - name: Run offline smoke evaluation
+        run: |
+          uv run python -m evals.runners.run_full_eval
+          uv run python -m evals.runners.run_extension_ablation
+          uv run python -m evals.runners.judge_calibration
+
+  web-typecheck:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install frontend dependencies and typecheck
+        run: |
+          npm install
+          npm run typecheck
+          npm run build

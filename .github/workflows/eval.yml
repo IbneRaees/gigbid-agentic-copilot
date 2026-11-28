@@ -1,0 +1,31 @@
+name: GigBid Scheduled Eval
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+jobs:
+  full-eval:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      MODEL_PROFILE: offline_demo
+      GIGBID_OFFLINE_EMBEDDINGS: "true"
+      GIGBID_USE_MCP: "false"
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.11 && uv sync --frozen
+      - name: Run full benchmark suite
+        run: |
+          uv run python -m evals.runners.run_rag_eval
+          uv run python -m evals.runners.run_full_eval
+          uv run python -m evals.runners.run_extension_ablation
+          uv run python -m evals.runners.judge_calibration
+      - name: Upload evaluation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gigbid-eval-reports
+          path: evals/results/*.json

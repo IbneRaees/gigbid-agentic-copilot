@@ -1,0 +1,427 @@
+{
+  "updated_at": "2026-11-28T15:22:28.671341+00:00",
+  "episodic": [
+    {
+      "event_id": "ep_bid_86022e5e2b",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_001",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "proposal_outcome",
+      "outcome": "interview",
+      "summary": "Approved & submitted proposal for Build Multi-Agent Contract Review Pipeline with LangGraph & Postgres Checkpointing at USD 4,480",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "screening_answers": {
+        "Describe a LangGraph system you shipped with human-in-the-loop interrupts and durable checkpointing.": "In Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (ev_aiml_001), [ev_aiml_001] Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (Case Study)\nClient Industry: LegalTech | Date: 2026-06-18 | Outcome Status: completed\nSkills & Stack: LangGraph, Python, PostgreSQL, FastAPI, Human-in-the-Loop, Pydantic\nSolution & Architecture: Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+        "How do you measure and reduce unsupported claims in RAG outputs?": "In graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (ev_aiml_007), [ev_aiml_007] graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (Github Repo)\nClient Industry: HR Tech | Date: 2026-02-11 | Outcome Status: completed\nSkills & Stack: GraphRAG, PostgreSQL, Python, Entity Resolution, RAG\nSolution & Architecture: Multi-hop entity graph linking skills, projects, client industries, and verified outcomes. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow."
+      },
+      "tags": [
+        "ai_ml"
+      ],
+      "metadata": {
+        "domain_category": "ai_ml"
+      },
+      "created_at": "2026-11-28T14:35:04.393414+00:00"
+    },
+    {
+      "event_id": "ep_bid_3f10902503",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_005",
+      "thread_id": null,
+      "client_id": "cli_scam_01",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-001/002: Job demands off-platform contact or payment.",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip",
+        "policy_trap"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T14:35:06.635486+00:00"
+    },
+    {
+      "event_id": "ep_bid_70a8affe23",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_006",
+      "thread_id": null,
+      "client_id": "cli_scam_02",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-003: Job demands unpaid free prototype/sample work.",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip",
+        "policy_trap"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T14:35:08.793477+00:00"
+    },
+    {
+      "event_id": "ep_bid_3971592f88",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_008",
+      "thread_id": null,
+      "client_id": "cli_006",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Budget max ($180) is below freelancer floor ($800).",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T14:35:10.942239+00:00"
+    },
+    {
+      "event_id": "ep_bid_82e6b10a20",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_012",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Insufficient portfolio skill fit (0.04 < 0.30).",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T14:35:13.165966+00:00"
+    },
+    {
+      "event_id": "ep_bid_33572097f0",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_001",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "proposal_outcome",
+      "outcome": "interview",
+      "summary": "Approved & submitted proposal for Build Multi-Agent Contract Review Pipeline with LangGraph & Postgres Checkpointing at USD 4,480",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "screening_answers": {
+        "Describe a LangGraph system you shipped with human-in-the-loop interrupts and durable checkpointing.": "In Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (ev_aiml_001), [ev_aiml_001] Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (Case Study)\nClient Industry: LegalTech | Date: 2026-06-18 | Outcome Status: completed\nSkills & Stack: LangGraph, Python, PostgreSQL, FastAPI, Human-in-the-Loop, Pydantic\nSolution & Architecture: Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+        "How do you measure and reduce unsupported claims in RAG outputs?": "In graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (ev_aiml_007), [ev_aiml_007] graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (Github Repo)\nClient Industry: HR Tech | Date: 2026-02-11 | Outcome Status: completed\nSkills & Stack: GraphRAG, PostgreSQL, Python, Entity Resolution, RAG\nSolution & Architecture: Multi-hop entity graph linking skills, projects, client industries, and verified outcomes. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow."
+      },
+      "tags": [
+        "ai_ml"
+      ],
+      "metadata": {
+        "domain_category": "ai_ml"
+      },
+      "created_at": "2026-11-28T14:35:29.452415+00:00"
+    },
+    {
+      "event_id": "ep_bid_6b5785e57f",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_001",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "proposal_outcome",
+      "outcome": "interview",
+      "summary": "Approved & submitted proposal for Build Multi-Agent Contract Review Pipeline with LangGraph & Postgres Checkpointing at USD 4,480",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "screening_answers": {
+        "Describe a LangGraph system you shipped with human-in-the-loop interrupts and durable checkpointing.": "In Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (ev_aiml_001), [ev_aiml_001] Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (Case Study)\nClient Industry: LegalTech | Date: 2026-06-18 | Outcome Status: completed\nSkills & Stack: LangGraph, Python, PostgreSQL, FastAPI, Human-in-the-Loop, Pydantic\nSolution & Architecture: Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+        "How do you measure and reduce unsupported claims in RAG outputs?": "In graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (ev_aiml_007), [ev_aiml_007] graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (Github Repo)\nClient Industry: HR Tech | Date: 2026-02-11 | Outcome Status: completed\nSkills & Stack: GraphRAG, PostgreSQL, Python, Entity Resolution, RAG\nSolution & Architecture: Multi-hop entity graph linking skills, projects, client industries, and verified outcomes. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow."
+      },
+      "tags": [
+        "ai_ml"
+      ],
+      "metadata": {
+        "domain_category": "ai_ml"
+      },
+      "created_at": "2026-11-28T15:21:51.855684+00:00"
+    },
+    {
+      "event_id": "ep_bid_946642bc58",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_005",
+      "thread_id": null,
+      "client_id": "cli_scam_01",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-001/002: Job demands off-platform contact or payment.",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip",
+        "policy_trap"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T15:21:54.039594+00:00"
+    },
+    {
+      "event_id": "ep_bid_b3cc3fb59c",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_006",
+      "thread_id": null,
+      "client_id": "cli_scam_02",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-003: Job demands unpaid free prototype/sample work.",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip",
+        "policy_trap"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T15:21:56.189292+00:00"
+    },
+    {
+      "event_id": "ep_bid_39171a8265",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_008",
+      "thread_id": null,
+      "client_id": "cli_006",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Budget mismatch: max ($180) is below freelancer floor ($800).",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T15:21:58.420282+00:00"
+    },
+    {
+      "event_id": "ep_bid_10d2e684f5",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_012",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "skip_decision",
+      "outcome": "skipped",
+      "summary": "SKIP: Insufficient portfolio skill fit (0.04 < 0.30).",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [],
+      "screening_answers": {},
+      "tags": [
+        "skip"
+      ],
+      "metadata": {},
+      "created_at": "2026-11-28T15:22:00.534713+00:00"
+    },
+    {
+      "event_id": "ep_bid_0039a1c965",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_001",
+      "thread_id": null,
+      "client_id": "cli_001",
+      "event_type": "proposal_outcome",
+      "outcome": "interview",
+      "summary": "Approved & submitted proposal for Build Multi-Agent Contract Review Pipeline with LangGraph & Postgres Checkpointing at USD 4,480",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "screening_answers": {
+        "Describe a LangGraph system you shipped with human-in-the-loop interrupts and durable checkpointing.": "In Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (ev_aiml_001), [ev_aiml_001] Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (Case Study)\nClient Industry: LegalTech | Date: 2026-06-18 | Outcome Status: completed\nSkills & Stack: LangGraph, Python, PostgreSQL, FastAPI, Human-in-the-Loop, Pydantic\nSolution & Architecture: Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+        "How do you measure and reduce unsupported claims in RAG outputs?": "In graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (ev_aiml_007), [ev_aiml_007] graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (Github Repo)\nClient Industry: HR Tech | Date: 2026-02-11 | Outcome Status: completed\nSkills & Stack: GraphRAG, PostgreSQL, Python, Entity Resolution, RAG\nSolution & Architecture: Multi-hop entity graph linking skills, projects, client industries, and verified outcomes. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow."
+      },
+      "tags": [
+        "ai_ml"
+      ],
+      "metadata": {
+        "domain_category": "ai_ml"
+      },
+      "created_at": "2026-11-28T15:22:16.587797+00:00"
+    },
+    {
+      "event_id": "ep_conv_323e1f30f6",
+      "freelancer_id": "persona_aiml_01",
+      "job_id": "job_001",
+      "thread_id": "thread_001",
+      "client_id": "cli_001",
+      "event_type": "client_feedback",
+      "outcome": "interview",
+      "summary": "Intent=interview_request: Hi Dr. Tariq — your legal contract copilot case study is spot on. Two quick questions: (1) Can PostgresSaver handle concurrent human approvals across 20 reviewers, and (2) are you ",
+      "grounding_score": 1.0,
+      "compliance_passed": true,
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007"
+      ],
+      "screening_answers": {},
+      "tags": [
+        "conversation",
+        "interview_request"
+      ],
+      "metadata": {
+        "proposed_counter_rate": null
+      },
+      "created_at": "2026-11-28T15:22:28.671312+00:00"
+    }
+  ],
+  "semantic": [
+    {
+      "memory_id": "mem_win_8ac9f4d13a4c",
+      "freelancer_id": "persona_aiml_01",
+      "memory_type": "winning_pattern",
+      "title": "Grounded ai_ml proposal pattern (interview)",
+      "content": "Outcome=interview | Grounding=1.00 | Evidence=ev_aiml_001, ev_aiml_007, ev_aiml_009, ev_aiml_004 | Approved & submitted proposal for Build Multi-Agent Contract Review Pipeline with LangGraph & Postgres Checkpointing at USD 4,480",
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "tags": [
+        "ai_ml",
+        "interview"
+      ],
+      "confidence": 0.88,
+      "source_event_ids": [
+        "ep_bid_86022e5e2b",
+        "ep_bid_33572097f0",
+        "ep_bid_6b5785e57f",
+        "ep_bid_0039a1c965"
+      ],
+      "usage_count": 4,
+      "created_at": "2026-11-28T14:35:04.393734+00:00",
+      "updated_at": "2026-11-28T15:22:16.588867+00:00"
+    },
+    {
+      "memory_id": "mem_qa_2043e08f19a9",
+      "freelancer_id": "persona_aiml_01",
+      "memory_type": "reusable_qa",
+      "title": "Describe a LangGraph system you shipped with human-in-the-loop interrupts and durable checkpointing.",
+      "content": "In Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (ev_aiml_001), [ev_aiml_001] Multi-Agent Legal Contract Review Copilot on LangGraph + Postgres (Case Study)\nClient Industry: LegalTech | Date: 2026-06-18 | Outcome Status: completed\nSkills & Stack: LangGraph, Python, PostgreSQL, FastAPI, Human-in-the-Loop, Pydantic\nSolution & Architecture: Architected a 6-node parallel LangGraph workflow with Postgres checkpointing and human approval interrupts for commercial contract redlining. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "tags": [
+        "ai_ml",
+        "screening_qa"
+      ],
+      "confidence": 0.95,
+      "source_event_ids": [
+        "ep_bid_86022e5e2b",
+        "ep_bid_33572097f0",
+        "ep_bid_6b5785e57f",
+        "ep_bid_0039a1c965"
+      ],
+      "usage_count": 4,
+      "created_at": "2026-11-28T14:35:04.393771+00:00",
+      "updated_at": "2026-11-28T15:22:16.589716+00:00"
+    },
+    {
+      "memory_id": "mem_qa_00944daa13e2",
+      "freelancer_id": "persona_aiml_01",
+      "memory_type": "reusable_qa",
+      "title": "How do you measure and reduce unsupported claims in RAG outputs?",
+      "content": "In graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (ev_aiml_007), [ev_aiml_007] graphrag-skill-linker: NetworkX + Postgres Knowledge Graph for Talent Matching (Github Repo)\nClient Industry: HR Tech | Date: 2026-02-11 | Outcome Status: completed\nSkills & Stack: GraphRAG, PostgreSQL, Python, Entity Resolution, RAG\nSolution & Architecture: Multi-hop entity graph linking skills, projects, client industries, and verified outcomes. I will apply this verified Python, LangGraph, PostgreSQL, FastAPI approach directly to your workflow.",
+      "evidence_ids": [
+        "ev_aiml_001",
+        "ev_aiml_007",
+        "ev_aiml_009",
+        "ev_aiml_004"
+      ],
+      "tags": [
+        "ai_ml",
+        "screening_qa"
+      ],
+      "confidence": 0.95,
+      "source_event_ids": [
+        "ep_bid_86022e5e2b",
+        "ep_bid_33572097f0",
+        "ep_bid_6b5785e57f",
+        "ep_bid_0039a1c965"
+      ],
+      "usage_count": 4,
+      "created_at": "2026-11-28T14:35:04.393792+00:00",
+      "updated_at": "2026-11-28T15:22:16.590506+00:00"
+    },
+    {
+      "memory_id": "mem_risk_62b6ac4b666f",
+      "freelancer_id": "persona_aiml_01",
+      "memory_type": "risk_pattern",
+      "title": "Blocked risk pattern for cli_scam_01",
+      "content": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-001/002: Job demands off-platform contact or payment.",
+      "evidence_ids": [],
+      "tags": [
+        "skip",
+        "policy_trap",
+        "compliance_block"
+      ],
+      "confidence": 0.95,
+      "source_event_ids": [
+        "ep_bid_3f10902503",
+        "ep_bid_946642bc58"
+      ],
+      "usage_count": 2,
+      "created_at": "2026-11-28T14:35:06.636096+00:00",
+      "updated_at": "2026-11-28T15:21:54.040676+00:00"
+    },
+    {
+      "memory_id": "mem_risk_6ef11fa8bf30",
+      "freelancer_id": "persona_aiml_01",
+      "memory_type": "risk_pattern",
+      "title": "Blocked risk pattern for cli_scam_02",
+      "content": "SKIP: Risk Assessor flagged client/job as high-risk or scam. | POL-003: Job demands unpaid free prototype/sample work.",
+      "evidence_ids": [],
+      "tags": [
+        "skip",
+        "policy_trap",
+        "compliance_block"
+      ],
+      "confidence": 0.95,
+      "source_event_ids": [
+        "ep_bid_70a8affe23",
+        "ep_bid_b3cc3fb59c"
+      ],
+      "usage_count": 2,
+      "created_at": "2026-11-28T14:35:08.794104+00:00",
+      "updated_at": "2026-11-28T15:21:56.190118+00:00"
+    }
+  ]
+}

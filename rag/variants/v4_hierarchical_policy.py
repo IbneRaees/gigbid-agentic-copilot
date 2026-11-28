@@ -61,7 +61,7 @@ def retrieve_v4_hierarchical_policy(
     ce_scores = store.reranker.predict(pairs)
 
     reranked_parents: list[tuple[DocumentChunk, dict[str, float]]] = []
-    for (parent_chunk, metrics), ce_score in zip(unique_parents, ce_scores):
+    for (parent_chunk, metrics), ce_score in zip(unique_parents, ce_scores, strict=False):
         blended = 0.75 * ce_score + 0.25 * min(1.0, metrics["score"])
         reranked_parents.append(
             (

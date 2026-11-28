@@ -4,7 +4,8 @@ course: "AI-4016"
 marketplace:
   # Switched via MARKETPLACE_MODE env var: "gigsim" | "upwork_live"
   mode: "${MARKETPLACE_MODE:-gigsim}"
-  gigsim_base_url: "http://127.0.0.1:8010"
+  gigsim_base_url: "http://localhost:8081"
+  upwork_live_draft_only: true
 
 llm:
   provider: "openrouter"
@@ -13,8 +14,91 @@ llm:
   max_tokens: 1200
   timeout_s: 30
 
+model_profiles:
+  offline_demo:
+    description: "Deterministic local heuristic & template router (zero external API keys required)"
+    fast_provider: "offline"
+    fast_model: "gigbid-offline-fast-v1"
+    reasoning_provider: "offline"
+    reasoning_model: "gigbid-offline-reasoning-v1"
+  open:
+    description: "Open-weight local Ollama or hosted OpenRouter/Groq open-weight models"
+    fast_provider: "ollama"
+    fast_model: "qwen3:4b"
+    reasoning_provider: "ollama"
+    reasoning_model: "qwen3:8b"
+    hosted_fallback_provider: "openrouter"
+    hosted_fast_model: "qwen/qwen-2.5-7b-instruct"
+    hosted_reasoning_model: "qwen/qwen-2.5-72b-instruct"
+    groq_fast_model: "llama-3.1-8b-instant"
+    groq_reasoning_model: "llama-3.3-70b-versatile"
+  paid:
+    description: "Frontier commercial APIs (OpenAI / Anthropic) with open-weight RAG"
+    fast_provider: "openai"
+    fast_model: "gpt-4o-mini"
+    reasoning_provider: "anthropic"
+    reasoning_model: "claude-3-5-sonnet-latest"
+    openai_reasoning_model: "gpt-4o"
+
+nodes:
+  scout:
+    tier: "fast"
+    temperature: 0.1
+    max_tokens: 800
+    timeout_s: 20
+  analyst:
+    tier: "fast"
+    temperature: 0.1
+    max_tokens: 1200
+    timeout_s: 25
+  risk_assessor:
+    tier: "fast"
+    temperature: 0.0
+    max_tokens: 1000
+    timeout_s: 25
+  fit_matcher:
+    tier: "fast"
+    temperature: 0.1
+    max_tokens: 1200
+    timeout_s: 25
+  pricing:
+    tier: "reasoning"
+    temperature: 0.1
+    max_tokens: 1000
+    timeout_s: 25
+  writer:
+    tier: "reasoning"
+    temperature: 0.3
+    max_tokens: 1600
+    timeout_s: 35
+  critic:
+    tier: "reasoning"
+    temperature: 0.0
+    max_tokens: 1000
+    timeout_s: 25
+  compliance:
+    tier: "fast"
+    temperature: 0.0
+    max_tokens: 1000
+    timeout_s: 25
+  client_liaison:
+    tier: "reasoning"
+    temperature: 0.2
+    max_tokens: 1200
+    timeout_s: 30
+
+budgets:
+  max_steps: 24
+  max_tokens: 24000
+  max_revisions: 2
+  max_daily_budget_usd: 5.0
+  min_connects_balance_reserve: 4
+  min_connects_roi_ratio: 8.0
+
 rag:
+  variant: "v4"
   default_variant: "v4"
+  top_k: 5
   top_k_portfolio: 4
   top_k_policy: 3
   embedding_model: "BAAI/bge-small-en-v1.5"
@@ -23,5 +107,29 @@ rag:
 
 safety:
   require_human_approval: true
+  auto_send_enabled: false
   min_grounding_score: 0.85
   max_daily_budget_usd: 5.0
+  pii_masking_enabled: true
+
+policy:
+  version: "2026.1"
+  service_fee_tiers:
+    - up_to_usd: 500.0
+      rate: 0.15
+    - up_to_usd: 10000.0
+      rate: 0.10
+    - up_to_usd: null
+      rate: 0.05
+  connects_schedule:
+    micro_under_250: 4
+    small_250_999: 6
+    medium_1000_4999: 8
+    large_5000_plus: 12
+
+memory:
+  store_path: "data/processed/memory_store.json"
+  min_grounding_for_promotion: 0.85
+  min_confidence_for_promotion: 0.70
+  max_episodic_items: 500
+  max_semantic_items: 200

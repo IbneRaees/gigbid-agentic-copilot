@@ -75,8 +75,10 @@ def _compute_marketplace_fee(amount: float) -> float:
 class GigSimStore:
     """SQLite-backed state manager for GigSim marketplace simulation."""
 
-    def __init__(self, db_path: Path = DEFAULT_DB_PATH, data_dir: Path = DEFAULT_DATA_DIR) -> None:
-        self.db_path = Path(db_path)
+    def __init__(
+        self,
+        db_path: Path | None = None, data_dir: Path = DEFAULT_DATA_DIR) -> None:
+        self.db_path = Path(db_path or os.getenv("GIGSIM_DB_PATH", str(ROOT_DIR / "gigsim" / "gigsim.db")))
         self.data_dir = Path(data_dir)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._init_schema()

@@ -466,7 +466,7 @@ class ClaimVerifier:
         matched_ids: list[str] = []
         matched_snippets: list[str] = []
 
-        for (ev_id, ev_text, ev_tokens), ce_score in zip(evidence_corpus, ce_scores):
+        for (ev_id, ev_text, ev_tokens), ce_score in zip(evidence_corpus, ce_scores, strict=False):
             lex_overlap = (
                 len(claim_tokens & ev_tokens) / max(1, len(claim_tokens)) if claim_tokens else 0.0
             )

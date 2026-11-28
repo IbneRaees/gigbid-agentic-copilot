@@ -30,3 +30,4 @@ mcp_servers/workspace/*.db
 
 *.db-shm
 *.db-wal
+docs/Assignment-II*

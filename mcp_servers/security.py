@@ -111,8 +111,11 @@ def sanitize_value(value: Any, key_hint: str = "") -> Any:
 class MCPAuditLogger:
     """Append-only JSONL audit logger recording every MCP tool invocation."""
 
-    def __init__(self, log_path: Path = DEFAULT_AUDIT_LOG_PATH) -> None:
-        self.log_path = Path(log_path)
+    def __init__(self, log_path: Path | None = None) -> None:
+        resolved = log_path or Path(
+            os.getenv("MCP_AUDIT_LOG_PATH", str(ROOT_DIR / "logs" / "mcp_audit.jsonl"))
+        )
+        self.log_path = Path(resolved)
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
 
     def record(

@@ -104,7 +104,7 @@ def retrieve_v3_cross_encoder_rerank(
     ce_scores = store.reranker.predict(pairs)
 
     reranked: list[tuple[DocumentChunk, dict[str, float]]] = []
-    for (chunk, metrics), ce_score in zip(stage1, ce_scores):
+    for (chunk, metrics), ce_score in zip(stage1, ce_scores, strict=False):
         blended = 0.72 * ce_score + 0.28 * min(1.0, metrics["score"])
         updated = {
             "score": round(blended, 6),

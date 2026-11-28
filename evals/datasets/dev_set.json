@@ -1,0 +1,179 @@
+{
+  "cases": [
+    {
+      "job_id": "job-001",
+      "description": "Web redesign for small ecommerce",
+      "base_prize": 1200.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-002",
+      "description": "Mobile app bug triage",
+      "base_prize": 800.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-003",
+      "description": "Data pipeline optimization",
+      "base_prize": 2500.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-004",
+      "description": "AI model fine‑tuning",
+      "base_prize": 3000.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-005",
+      "description": "Website SEO audit",
+      "base_prize": 1500.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-006",
+      "description": "Customer support chatbot",
+      "base_prize": 1800.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-007",
+      "description": "Legacy code refactor",
+      "base_prize": 900.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-008",
+      "description": "Cloud cost‑savings analysis",
+      "base_prize": 2200.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-009",
+      "description": "UX research for new feature",
+      "base_prize": 1300.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-010",
+      "description": "Automated testing suite",
+      "base_prize": 1600.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-011",
+      "description": "Microservice deployment pipeline",
+      "base_prize": 2100.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-012",
+      "description": "Technical writing for API docs",
+      "base_prize": 700.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-013",
+      "description": "Security audit of web app",
+      "base_prize": 2600.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-014",
+      "description": "Performance profiling",
+      "base_prize": 1100.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-015",
+      "description": "Data visualization dashboard",
+      "base_prize": 1900.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-016",
+      "description": "Legacy database migration",
+      "base_prize": 2400.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-017",
+      "description": "AI‑generated content pipeline",
+      "base_prize": 2750.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-018",
+      "description": "CI/CD pipeline optimization",
+      "base_prize": 1950.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-019",
+      "description": "Custom analytics report",
+      "base_prize": 1600.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-020",
+      "description": "Serverless architecture design",
+      "base_prize": 2300.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-021",
+      "description": "Chatbot persona tuning",
+      "base_prize": 1250.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-022",
+      "description": "Data lake cleanup",
+      "base_prize": 1400.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-023",
+      "description": "Real‑time streaming pipeline",
+      "base_prize": 3000.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    },
+    {
+      "job_id": "job-024",
+      "description": "Enterprise onboarding guide",
+      "base_prize": 850.0,
+      "has_connects": false,
+      "ground_truth_decision": "reject"
+    },
+    {
+      "job_id": "job-025",
+      "description": "Voice assistant integration",
+      "base_prize": 2600.0,
+      "has_connects": true,
+      "ground_truth_decision": "accept"
+    }
+  ]
+}
